@@ -11,6 +11,7 @@ makedepends=('wget')
 depends=('glibc' 'libusb')
 url="http://linux-usb.sourceforge.net/"
 source=(http://downloads.sourceforge.net/sourceforge/linux-usb/usbutils-$pkgver.tar.gz)
+md5sums=('ba5e44d49ebf382015e96f43ce982abb')
 
 build() {
   cd $startdir/src/$pkgname-$pkgver
@@ -20,4 +21,4 @@ build() {
   make || return 1
   make DESTDIR=$startdir/pkg install
 }
-md5sums=('ba5e44d49ebf382015e96f43ce982abb')
+
