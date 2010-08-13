@@ -1,7 +1,7 @@
 # Maintainer: Judd Vinet <jvinet@zeroflux.org>
 # Contributor: Curtis Campbell <curtisjamescampbell@hotmail.com>
 pkgname=usbutils
-pkgver=0.87
+pkgver=0.90
 pkgrel=1
 pkgdesc="USB Device Utilities"
 arch=(i686 x86_64)
@@ -11,7 +11,6 @@ makedepends=('wget')
 depends=('glibc' 'libusb')
 url="http://linux-usb.sourceforge.net/"
 source=(http://www.kernel.org/pub/linux/utils/usb/$pkgname/$pkgname-$pkgver.tar.gz)
-md5sums=('c19a11092dd0f5a5c6a93b0599740fe5')
 
 build() {
   cd $srcdir/$pkgname-$pkgver
@@ -24,3 +23,4 @@ build() {
   mkdir -p $pkgdir/usr/lib
   mv $pkgdir/usr/share/hwdata/pkgconfig $pkgdir/usr/lib/
 }
+md5sums=('53f0269e2cba704d5a35dfe291511292')
