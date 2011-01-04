@@ -2,7 +2,7 @@
 # Contributor: Curtis Campbell <curtisjamescampbell@hotmail.com>
 pkgname=usbutils
 pkgver=001
-pkgrel=1
+pkgrel=2
 pkgdesc="USB Device Utilities"
 arch=(i686 x86_64)
 license=('GPL')
@@ -12,7 +12,6 @@ depends=('glibc' 'libusb')
 url="http://linux-usb.sourceforge.net/"
 source=(http://www.kernel.org/pub/linux/utils/usb/$pkgname/$pkgname-$pkgver.tar.gz)
 md5sums=('3ecdcb42f08ef0d63e2638feb06ececc')
-options=('force')
 
 build() {
   cd $srcdir/$pkgname-$pkgver
