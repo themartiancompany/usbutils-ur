@@ -10,9 +10,19 @@ pkgrel=1
 pkgdesc="A collection of USB tools to query connected USB devices"
 arch=(x86_64)
 url="https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usbutils.git/"
-license=('GPL-2.0-only' 'GPL-2.0-or-later' 'GPL-3.0-only')
-depends=(glibc hwdata)
-makedepends=(libusb systemd)
+license=(
+  GPL-2.0-only
+  GPL-2.0-or-later
+  GPL-3.0-only
+)
+depends=(
+  glibc
+  hwdata
+)
+makedepends=(
+  libusb
+  systemd
+)
 optdepends=(
   'coreutils: for lsusb.py usage'
   'python: for lsusb.py usage'
