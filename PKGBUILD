@@ -1,3 +1,7 @@
+# SPDX-License-Identifier: AGPL-3.0
+#
+# Maintainer: Truocolo <truocolo@aol.com>
+# Maintainer: Pellegrino Prevete (tallero) <pellegrinoprevete@gmail.com>
 # Maintainer: David Runge <dvzrv@archlinux.org>
 # Contributor: Tobias Powalowski <tpowa@archlinux.org>
 # Contributor: Tom Gundersen <teg@jklm.no>
@@ -8,7 +12,12 @@ pkgname=usbutils
 pkgver=017
 pkgrel=1
 pkgdesc="A collection of USB tools to query connected USB devices"
-arch=(x86_64)
+arch=(
+  x86_64
+  arm
+  aarch64
+  i686
+)
 url="https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usbutils.git/"
 license=(
   GPL-2.0-only
@@ -28,20 +37,37 @@ optdepends=(
   'python: for lsusb.py usage'
   'sh: for usb-devices'
 )
-source=(https://www.kernel.org/pub/linux/utils/usb/usbutils/$pkgname-$pkgver.tar{.xz,.sign})
-sha512sums=('eaebbc82eee4d940898f7a8de95ca49846c7c964e65c3d866b38735f8f3c8ccfed2b3a536bf2ef39a835a40a34c2273ac4d82b1012d0c693d4863cff14870d95'
-            'SKIP')
-b2sums=('868c646ed6d38a38b9bd3ab85ba3a5e9362a97e476aeed6576c1b175caaf4ee688cb2c33756f02c9bf0aef9e7d58657331fc1c3b3314d86145b3d4f37124537e'
-        'SKIP')
-validpgpkeys=('647F28654894E3BD457199BE38DBBDC86092693E')  # Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+source=(
+  https://www.kernel.org/pub/linux/utils/usb/usbutils/$pkgname-$pkgver.tar{.xz,.sign}
+)
+sha512sums=(
+  'eaebbc82eee4d940898f7a8de95ca49846c7c964e65c3d866b38735f8f3c8ccfed2b3a536bf2ef39a835a40a34c2273ac4d82b1012d0c693d4863cff14870d95'
+  'SKIP'
+)
+b2sums=(
+  '868c646ed6d38a38b9bd3ab85ba3a5e9362a97e476aeed6576c1b175caaf4ee688cb2c33756f02c9bf0aef9e7d58657331fc1c3b3314d86145b3d4f37124537e'
+  'SKIP'
+)
+validpgpkeys=(
+   # Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+  '647F28654894E3BD457199BE38DBBDC86092693E'
+)
 
 prepare() {
-  cd $pkgname-$pkgver
-  autoreconf -fiv
+  cd \
+    $pkgname-$pkgver
+  # build systemd on hore is sure an hassle
+  # sed \
+  #   -i \
+  #   "/libudev/d" \
+  #   "configure.ac"
+  autoreconf \
+    -fiv
 }
 
 build() {
-  cd $pkgname-$pkgver
+  cd \
+    $pkgname-$pkgver
   ./configure \
     --prefix=/usr \
     --datadir=/usr/share/hwdata
@@ -50,12 +76,26 @@ build() {
 
 package() {
   depends+=(
-    libusb libusb-1.0.so
-    systemd-libs libudev.so
+    libusb
+    libusb-1.0.so
+    systemd-libs
+    libudev.so
   )
-
-  cd $pkgname-$pkgver
-  make DESTDIR="$pkgdir" install
-  install -vDm 755 usbreset -t "$pkgdir/usr/bin"
-  install -vDm 644 NEWS -t "$pkgdir/usr/share/doc/$pkgname/"
+  cd \
+    $pkgname-$pkgver
+  make \
+    DESTDIR="$pkgdir" \
+    install
+  install \
+    -vDm755 \
+    usbreset \
+    -t \
+    "$pkgdir/usr/bin"
+  install \
+    -vDm644 \
+    NEWS \
+    -t \
+    "$pkgdir/usr/share/doc/$pkgname/"
 }
+
+# vim: ft=sh syn=sh et
